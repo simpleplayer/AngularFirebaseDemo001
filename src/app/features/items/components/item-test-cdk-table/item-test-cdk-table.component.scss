@@ -1,0 +1,14 @@
+mat-card {
+    margin: 15px;
+    //width: 800px;
+    height:800px;  
+}
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+   
+    margin:20px;
+    overflow: auto;
+  }

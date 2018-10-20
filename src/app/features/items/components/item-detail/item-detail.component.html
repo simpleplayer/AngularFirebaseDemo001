@@ -1,0 +1,82 @@
+<!--
+<div fxLayout="row" fxLayoutAlign="space-between">
+  <div [ngSwitch]="action">
+    <h2 *ngSwitchCase="ItemDetailActions.ACTION_CREATE" i18n>Add a new Item</h2>
+    <h2 *ngSwitchCase="ItemDetailActions.ACTION_UPDATE" i18n>Edit Item</h2>
+  </div>
+
+  <button mat-icon-button mat-dialog-close="{{ItemDetailAnswers.ANSWER_CANCEL}}">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div>
+  <mat-input-container>
+    <input matInput placeholder="Title" [(ngModel)]="item.title" i18n-placeholder>
+  </mat-input-container>
+  <mat-input-container>
+    <input matInput placeholder="Description" [(ngModel)]="item.description" i18n-placeholder>
+  </mat-input-container>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="end">
+  <button mat-raised-button mat-dialog-close="{{ItemDetailAnswers.ANSWER_CANCEL}}" i18n>Cancel</button>
+  <button mat-raised-button color="primary" mat-dialog-close="{{ItemDetailAnswers.ANSWER_OK}}" i18n>Save</button>
+</div>
+-->
+
+
+
+<form class="mat-typography" novalidate [formGroup]="itemFormGroup">
+  <div [ngSwitch]="action" fxLayout="row" fxLayoutAlign="space-between center">
+    <h2 *ngSwitchCase="ItemDetailActions.ACTION_CREATE" i18n>Add a new Item</h2>
+    <h2 *ngSwitchCase="ItemDetailActions.ACTION_UPDATE" i18n>Edit Item</h2>
+    <button mat-icon-button (click)='closeDialog()'>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <input matInput formControlName="title" placeholder="Title" i18n-placeholder>
+      <!-- This gave an error in the IDE (not in the execution)
+      <mat-error *ngIf="title?.errors?.required">
+      ....  
+      <mat-error *ngIf="title?.errors?.maxlength">
+        Title should be maximum <strong>{{title?.errors?.maxlength?.requiredLength}}</strong>
+      .....
+      -->
+      <mat-error *ngIf="title?.hasError('required')">
+        Title is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="title?.hasError('maxlength')">
+        Title should be maximum <strong>{{title?.errors['maxlength']['requiredLength']}}</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="description" placeholder="Description" i18n-placeholder>
+      <mat-error *ngIf="description?.hasError('required')">
+        Description is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="description?.hasError('maxlength')">
+        Description should be maximum <strong>{{description?.errors['maxlength']['requiredLength']}}</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="end">
+    <button mat-raised-button (click)='closeDialog()' i18n>Cancel</button>
+    <button mat-raised-button color="primary" (click)='saveDialog()' i18n cdkFocusInitial  [disabled]="itemFormGroup.invalid">Save</button>
+  </div>
+</form>
+
+<!-- 
+<pre>itemFormGroup.value : {{itemFormGroup.value|json}}</pre>
+<pre>itemFormGroup.status : {{itemFormGroup.status|json}}</pre>
+<pre>title.status : {{title.status|json}} </pre>
+<pre>title.errors : {{title.errors|json}} </pre>
+
+<pre>description.status : {{description.status|json}}</pre>
+
+
+-->

@@ -1,0 +1,65 @@
+<!-- Paginator -->
+<div fxLayout="row" fxLayoutAlign="space-evenly center">
+  <!-- ========================================================= -->
+  <!-- Pagination Buttons : first, prev, pagenumbers, next, last -->
+  <!-- ========================================================= -->
+  <div fxLayout="row" fxLayoutAlign="space-evenly center" *ngIf="showPageButtons()">
+    <!-- The button to click for the first page -->
+    <button mat-icon-button color="" (click)="onPage('first')" [disabled]="isPageDisabled('first')">
+      <mat-icon>first_page</mat-icon>
+    </button>
+    <!-- The button to click for the prev page -->
+    <button mat-icon-button color="" (click)="onPage('prev')" [disabled]="isPageDisabled('prev')">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <!-- The row of pagination buttons e.g. 1 ... 6 7 8 ... 15 -->
+    <div *ngFor="let button of buttons">
+      <div [ngSwitch]="button.type">
+        <div *ngSwitchCase="'current'">
+          <button mat-mini-fab color="primary" (click)="changePage(button.value)">{{button.text}}</button>
+        </div>
+        <div *ngSwitchCase="'active'">
+          <button mat-icon-button color="" (click)="changePage(button.value)">{{button.text}}</button>
+        </div>
+        <div *ngSwitchCase="'ignore'">
+          <button mat-icon-button color="" disabled>{{button.text}}</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- The button to click for the next page -->
+    <button mat-icon-button color="" (click)="onPage('next')" [disabled]="isPageDisabled('next')">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+    <!-- The button to click for the last page -->
+    <button mat-icon-button color="" (click)="onPage('last')" [disabled]="isPageDisabled('last')">
+      <mat-icon>last_page</mat-icon>
+    </button>
+  </div>
+
+
+  <!-- ========================================================= -->
+  <!-- General total nbr of rows                                 -->
+  <!-- ========================================================= -->
+  <div>
+    Total rows = {{paginationService.dataSize}}
+  </div>
+  <!-- ========================================================= -->
+  <!-- Dropdownbox to select the number of rows per page         -->
+  <!-- ========================================================= -->
+  <div fxLayout="row">
+    <div>
+      <span>Rows per page {{paginationService.pageSize}}</span>
+    </div>
+    <div>
+      <mat-select [value]="pageSize" (selectionChange)="changePageSize($event.value)">
+        <mat-option *ngFor="let pageSize of paginationService.pageSizes;let i=index;" [value]="pageSize">
+          {{pageSize}}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+</div>
+<!--
+paginationService.page : {{paginationService.page}}
+-->

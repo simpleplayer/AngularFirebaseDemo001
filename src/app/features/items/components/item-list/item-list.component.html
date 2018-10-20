@@ -1,0 +1,46 @@
+<!-- Add item -->
+<mat-card class="item-card">
+  <mat-card-content>
+    <h2 class="mat-h2" i18n>Add a new Item</h2>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="add()" i18n>Add</button>
+  </mat-card-actions>
+</mat-card>
+
+
+<!-- List of items -->
+
+<!-- Show spinner when loading -->
+<div *ngIf="(isLoading)">
+  <mat-card class="item-card">
+    <mat-card-content>
+    <app-loader></app-loader>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+<!-- Show list when finished loading -->
+<div *ngIf="!(isLoading)">
+  <div *ngIf="items?.length>0; else noItems">
+    <mat-card class="item-card" *ngFor="let item of items">
+      <mat-card-content>
+        <p>{{item.title}}</p>
+        <p>{{item.description}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="delete(item.id)" i18n>DELETE</button>
+        <button mat-button (click)="update(item.id)" i18n>EDIT</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <!-- Template for empty list -->
+  <ng-template #noItems>
+    <mat-card class="item-card">
+      <mat-card-content>
+        <h3 class="mat-h3" mat-subheader i18n>No Items</h3>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</div>

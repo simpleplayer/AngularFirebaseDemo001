@@ -1,0 +1,39 @@
+<!-- List of items -->
+
+<!-- Show spinner when loading -->
+<div *ngIf="(isLoading)">
+  <mat-card class="item-card">
+    <mat-card-content>
+      <app-loader></app-loader>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+<!-- Show list when finished loading -->
+<div *ngIf="!(isLoading)">
+  <div *ngIf="items?.length>0; else noItems" fxLayout="column" fxLayoutAlign="none stretch">
+    <button mat-raised-button *ngFor="let item of items" (click)="select(item)"  [ngClass]="{'selected-item': item == selectedItem}">
+      <div fxLayout="column">
+        <p fxLayoutAlign="start center">{{item.title}}</p>
+        <p fxLayoutAlign="start center">{{item.description}}</p>
+      </div>
+    </button>
+  </div>
+  <!-- Template for empty list -->
+  <ng-template #noItems>
+    <mat-card class="item-card">
+      <mat-card-content>
+        <h3 class="mat-h3" mat-subheader i18n>No Items</h3>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+   <!-- Template for error -->
+   <div *ngIf="error">
+    <mat-card class="item-card">
+      <mat-card-content>
+        <h3 class="mat-h3" mat-subheader i18n>An error occured :  {{error}}</h3>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

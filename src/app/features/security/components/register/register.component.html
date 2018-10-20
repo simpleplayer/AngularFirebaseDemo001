@@ -1,0 +1,36 @@
+<form class="mat-typography" novalidate [formGroup]="registerFormGroup">
+  <mat-card class="register-card">
+    <!-- Header -->
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <h2 i18n>Register</h2>
+    </div>
+    <!-- Fields -->
+    <mat-form-field fxLayout="row" fxLayoutAlign="start center">
+      <input matInput formControlName="email" placeholder="Email" i18n-placeholder>
+      <mat-error *ngIf="email?.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="email?.hasError('maxlength')">
+        Email should be maximum <strong>{{email?.errors['maxlength']['requiredLength']}}</strong>
+      </mat-error>
+      <mat-error *ngIf="email?.hasError('email')">
+        Email should be <strong>emailformat</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field fxLayout="row" fxLayoutAlign="start center">
+      <input matInput type="password" formControlName="password" placeholder="Password" i18n-placeholder>
+      <mat-error *ngIf="password?.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="password?.hasError('maxlength')">
+        Password  should be maximum <strong>{{password?.errors['maxlength']['requiredLength']}}</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Buttons -->
+    <div fxLayout="row" fxLayoutAlign="end">
+      <button mat-raised-button color="primary" (click)='register()' i18n cdkFocusInitial [disabled]="registerFormGroup.invalid">Register</button>
+    </div>
+
+  </mat-card>
+</form>

@@ -1,0 +1,44 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+       - image: circleci/node:8-browsers
+      
+    working_directory: ~/repo
+ 
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+        
+      # run build
+      - run:
+          name: Build project
+          command: npm run build
+
+      # Deploy to Firebase  
+      # Need to have 
+      # - firebase-tools in the devDependencies of package.json)
+      # - FIREBASE_DEPLOY_TOKEN as variable on CircleCI
+      - run:
+          name: Deploy to Firebase
+          command: ./node_modules/.bin/firebase deploy --project angularfirebasedemo001 --token=$FIREBASE_DEPLOY_TOKEN
+

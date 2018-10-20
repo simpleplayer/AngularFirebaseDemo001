@@ -1,0 +1,46 @@
+<div class="example-container mat-elevation-z8" *ngIf="(isLoading)">
+  <!-- Show spinner when loading -->
+  <div class="example-header">
+    <app-loader></app-loader>
+  </div>
+</div>
+
+<!-- Remark :                                                       -->
+<!-- Do not use ngIf for the hiding during loading,                 -->
+<!-- cause we need the view-references (#filter, #paginator, #table -->
+<!-- Use [hidden], with a definition in scss                        -->
+<div [hidden]="isLoading">
+
+  <!-- Filter -->
+  <div class="example-header">
+    <mat-form-field floatPlaceholder="never">
+      <input matInput #filter placeholder="Filter items">
+    </mat-form-field>
+  </div>
+
+
+  <mat-table class="example-container mat-elevation-z8" #table [dataSource]="dataSource" matSort>
+    <!-- User name Definition -->
+    <ng-container cdkColumnDef="title">
+      <mat-header-cell *cdkHeaderCellDef mat-sort-header>Title </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.title}} </mat-cell>
+    </ng-container>
+
+    <!-- Age Definition -->
+    <ng-container cdkColumnDef="description">
+      <mat-header-cell *cdkHeaderCellDef mat-sort-header>Description </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.description}} </mat-cell>
+    </ng-container>
+
+
+
+    <!-- Header and Row Declarations -->
+    <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *cdkRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+ 
+
+  <mat-paginator fxLayout="row" fxLayoutAlign="start center" #paginator [length]="dataSource.data.length" [pageIndex]="0"
+    [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</div>

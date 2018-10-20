@@ -1,0 +1,62 @@
+<mat-card>
+
+
+  <app-filter></app-filter>
+  
+  <mat-table class="example-container mat-elevation-z8" cdk-table [dataSource]="tableDataSource$">
+
+    <!-- Column -->
+    <ng-container cdkColumnDef="id">
+      <mat-header-cell cdk-header-cell *cdkHeaderCellDef appSort> Id
+        <app-sort-icon [sortKey]="'id'"></app-sort-icon>
+      </mat-header-cell>
+      <mat-cell cdk-cell *cdkCellDef="let row"> {{row.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container cdkColumnDef="title">
+      <mat-header-cell cdk-header-cell *cdkHeaderCellDef appSort> Title
+        <app-sort-icon [sortKey]="'title'"></app-sort-icon>
+      </mat-header-cell>
+      <mat-cell cdk-cell *cdkCellDef="let row"> {{row.title}} </mat-cell>
+    </ng-container>
+
+    <!-- Column -->
+    <ng-container cdkColumnDef="description">
+      <mat-header-cell cdk-header-cell *cdkHeaderCellDef appSort> Description
+        <app-sort-icon [sortKey]="'description'"></app-sort-icon>
+      </mat-header-cell>
+      <mat-cell cdk-cell *cdkCellDef="let row"> {{row.description}} </mat-cell>
+    </ng-container>
+
+
+    <!-- Header and Row Declarations -->
+    <mat-header-row cdk-header-row *cdkHeaderRowDef="displayedColumns$.value"></mat-header-row>
+    <mat-row cdk-row *cdkRowDef="let row; columns: displayedColumns$.value"></mat-row>
+
+  </mat-table>
+
+  <app-pagination></app-pagination>
+
+
+</mat-card>
+
+<!-- angualr matarial table styling
+  table   mat-table
+  th      mat-header-cell
+  td      mat-cell
+  tr      mat-header-row, mat-row
+-->
+
+<!-- Hero Name Column -->
+<!--
+<ng-container cdkColumnDef="name">
+  <th cdk-header-cell *cdkHeaderCellDef (click)="adjustSort('name')">
+    Hero Name
+    <span *ngIf="sortKey$.value === 'name'">
+      {{ sortDirection$.value === 'asc' ? '↥' : '↧' }}
+    </span>
+  </th>
+  <td cdk-cell *cdkCellDef="let row"> {{row.name}} </td>
+</ng-container>
+-->

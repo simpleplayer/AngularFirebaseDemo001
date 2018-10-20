@@ -1,0 +1,10 @@
+/* Style description for dialog header                */
+/* Remove the margin, otherwise the header and the    */
+/* close-icon are not on same height                  */
+h2 {
+    margin:0px;
+}
+/* provide a litte margin between buttons             */
+button {
+    margin-left:10px;
+}

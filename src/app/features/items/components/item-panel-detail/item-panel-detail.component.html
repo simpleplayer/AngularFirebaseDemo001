@@ -1,0 +1,74 @@
+<!--
+<mat-card class="item-card">
+  <mat-card-content>
+    <p fxLayout="row" fxLayoutAlign="start center">{{item.title}}</p>
+    <p fxLayout="row" fxLayoutAlign="start center">{{item.description}}</p>
+  </mat-card-content>
+  <div fxLayout="row" fxLayoutAlign="end">
+   
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end">
+    <button mat-raised-button (click)='clear()' i18n>Clear</button>
+    <button mat-raised-button color="primary" (click)='saveDialog()' i18n cdkFocusInitial>Save</button>
+  </div>
+</mat-card>
+-->
+
+
+<form class="mat-typography" novalidate [formGroup]="itemFormGroup">
+
+  <mat-card>
+    <!-- Header -->
+    <div [ngSwitch]="action" fxLayout="row" fxLayoutAlign="space-between center">
+      <h2 *ngSwitchCase="ItemDetailActions.ACTION_CREATE" i18n>Add a new Item</h2>
+      <h2 *ngSwitchCase="ItemDetailActions.ACTION_UPDATE" i18n>Edit Item</h2>
+    </div>
+    <!-- Fields -->
+    <mat-form-field fxLayout="row" fxLayoutAlign="start center">
+      <input matInput formControlName="title" placeholder="Title" i18n-placeholder [errorStateMatcher]="matcher">
+      <!-- This gave an error in the IDE (not in the execution)
+      <mat-error *ngIf="title?.errors?.required">
+      ....  
+      <mat-error *ngIf="title?.errors?.maxlength">
+        Title should be maximum <strong>{{title?.errors?.maxlength?.requiredLength}}</strong>
+      .....
+      -->
+      <mat-error *ngIf="title?.hasError('required')">
+        Title is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="title?.hasError('maxlength')">
+        Title should be maximum <strong>{{title?.errors['maxlength']['requiredLength']}}</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field fxLayout="row" fxLayoutAlign="start center">
+      <input matInput formControlName="description" placeholder="Description" i18n-placeholder [errorStateMatcher]="matcher">
+      <mat-error *ngIf="description?.hasError('required')">
+        Description is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="description?.hasError('maxlength')">
+        Description should be maximum <strong>{{description?.errors['maxlength']['requiredLength']}}</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutAlign="end">
+      <button mat-raised-button (click)='clear()' i18n cdkFocusInitial>Clear</button>
+      <button mat-raised-button color="primary" (click)='save()' i18n cdkFocusInitial [disabled]="itemFormGroup.invalid">Save</button>
+      <button mat-raised-button color="warn" (click)='delete()' i18n [disabled]="action==ItemDetailActions.ACTION_CREATE">Delete</button>
+      <!--
+      <button mat-icon-button color="primary" (click)='delete()' i18n   [disabled]="action==ItemDetailActions.ACTION_CREATE">
+        <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+      </button>
+      -->
+    </div>
+  </mat-card>
+
+
+</form>
+
+<!--
+<pre>itemFormGroup.value : {{itemFormGroup.value|json}}</pre>
+<pre>itemFormGroup.status : {{itemFormGroup.status|json}}</pre>
+<pre>itemFormGroup.status : {{itemFormGroup.status|json}}</pre>
+<pre>title.status : {{title.status|json}} </pre>
+<pre>title.errors : {{title.errors|json}} </pre>
+-->

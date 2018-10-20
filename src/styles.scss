@@ -1,1 +1,56 @@
-/* You can add global styles to this file, and also import other style files */
+// You can add global styles to this file, and also import other style files 
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+// Include the common styles for Angular Material. We include this here so that you only                    
+// have to load a single css file for Angular Material in your app. 
+// Be sure that you only ever include this mixin once!   
+@include mat-core();
+// ----------------------------------------------------------------------------------------------------
+// Mixins fro components, items                                                                        
+// ----------------------------------------------------------------------------------------------------
+@mixin my-mixins($theme) {
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent); // Class can be used in a panel list when an item is selected                                      
+    // Take the foregroundcolor, cause then we know it will contrast with the background               
+    // with a low opacity, to have it contrates with the foreground                                    
+    .selected-item {
+        background-color: mat-color($foreground, text, .1);
+    }
+}
+
+// ----------------------------------------------------------------------------------------------------
+// Light Theme                                                                                         
+// ----------------------------------------------------------------------------------------------------
+.light-theme {
+    $light_primary: mat-palette($mat-blue-grey);
+    $light_accent: mat-palette($mat-amber);
+    $light_theme: mat-light-theme($light_primary, $light_accent);
+    @include angular-material-theme($light_theme);
+    @include my-mixins($light_theme);
+}
+
+// ----------------------------------------------------------------------------------------------------
+// Dark Theme                                                                                          
+// ----------------------------------------------------------------------------------------------------
+.dark-theme {
+    $dark-primary: mat-palette($mat-amber);
+    $dark-accent: mat-palette($mat-blue-grey);
+    $dark-theme: mat-dark-theme($dark-primary, $dark-accent);
+    @include angular-material-theme($dark-theme);
+    @include my-mixins($dark-theme);
+}
+
+// ----------------------------------------------------------------------------------------------------
+// Define custom typographie    
+// // $font-family: "Pacifico"                                                                       
+// ----------------------------------------------------------------------------------------------------
+$app-typography:mat-typography-config( $font-family: '"Open Sans", "Helvetica Neue", sans-serif');
+@include angular-material-typography($app-typography);
+
+
+.test-font {
+    $test-app-typography:mat-typography-config( $font-family: 'Pacifico');
+    @include angular-material-typography($test-app-typography);
+}

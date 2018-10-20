@@ -1,0 +1,69 @@
+/* ================================================= */
+/* For mat-toolbar                                    */
+/* ================================================= */
+.toolbar-sidenav {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toolbar-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .toolbar-content-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .toolbar-content-tools {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.account {
+    margin-right: 20px;
+}
+/* ============================================ */
+/* Settings to make fixed header/footer         */
+/* ============================================ */
+
+/* $toolbar-height of mat-toolbar */
+$toolbar-height:64px; 
+/* $footer-toolbar-height : take a bit smaller then mat-toolbar */
+$footer-toolbar-height:40px;
+
+.fixed-main-container {
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+}
+
+.fixed-main-container > * {
+    flex: 1 1 auto;
+}
+
+
+.fixed-header {
+   max-height:$toolbar-height;
+   min-height:$toolbar-height;
+}
+
+.fixed-content {
+    overflow-y:auto; 
+}
+
+.fixed-footer {
+   max-height:$footer-toolbar-height;
+   min-height:$footer-toolbar-height;
+   overflow-y:hidden;
+}
+

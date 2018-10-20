@@ -1,0 +1,13 @@
+<mat-nav-list>
+  <a mat-list-item *ngFor="let view of views" [routerLink]="view.route">
+
+
+    <mat-icon mat-list-icon>{{view.icon}}</mat-icon>
+    <span matLine>{{view.name}}</span>
+    <!--
+    <span matLine class="secondary">{{view.description}}</span>
+    -->
+
+  </a>
+
+</mat-nav-list>

@@ -1,0 +1,19 @@
+<div class="mat-typography">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div [ngSwitch]="action">
+      <h2 *ngSwitchCase="ConfirmActions.ACTION_DELETE" i18n>Delete Row</h2>
+    </div>
+    <button mat-icon-button mat-dialog-close="{{ConfirmAnswers.CONFIRM_NO}}">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div [ngSwitch]="action">
+    <h3 class="mat-h3"  *ngSwitchCase="ConfirmActions.ACTION_DELETE" i18n> Are you sure you want to delete this row?</h3>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="end">
+    <button mat-raised-button mat-dialog-close="{{ConfirmAnswers.CONFIRM_NO}}" i18n>No</button>
+    <button mat-raised-button color="primary" mat-dialog-close="{{ConfirmAnswers.CONFIRM_YES}}" i18n cdkFocusInitial>Yes</button>
+  </div>
+</div>
